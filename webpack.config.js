@@ -5,7 +5,7 @@ module.exports = {
     // 设置模式为开发
     mode: 'development',
     // 指定入口文件
-    entry: './index.ts',
+    entry: './src/index.ts',
     // 配置输出
     output: {
         filename: 'bundle.js',
@@ -20,6 +20,12 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.wgsl$/,
+                use: {
+                    loader: "ts-shader-loader"
+                }
+            }
         ]
     },
     // 插件配置
