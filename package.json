@@ -1,0 +1,25 @@
+{
+  "name": "webgpu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run install-missing-dependencies && npm run pack && npm run serve",
+    "install-missing-dependencies": "npm i",
+    "pack": "webpack --config webpack.config.js",
+    "serve": "live-server --cors"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.14.2",
+    "@webgpu/types": "^0.1.42",
+    "save": "^2.9.0",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.5.1"
+  }
+}
