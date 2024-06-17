@@ -30,21 +30,17 @@ async function aaa() {
     if(!context) {
         return;
     }
-
-    const bindGroupLayout = device.createBindGroupLayout({
-        entries: [],
+    const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
+    context.configure({
+        device,
+        format: presentationFormat
     });
 
-    const bindGroup = device.createBindGroup({
-        layout: bindGroupLayout,
-        entries: []
-    });
 
-    const pipelineLayout = device.createPipelineLayout({
-        bindGroupLayouts: [bindGroupLayout]
-    });
 
     const pipeline = device.createRenderPipeline({
+        layout: "auto",  // 
+
         vertex: {
             module: device.createShaderModule({
                 code: shader
@@ -60,13 +56,7 @@ async function aaa() {
             targets: [{
                 format: format
             }]
-        },
-
-        primitive: {
-            topology: "triangle-list"
-        },
-
-        layout: pipelineLayout
+        }
     });
 
     const commandEncoder: GPUCommandEncoder = device.createCommandEncoder();
@@ -74,14 +64,13 @@ async function aaa() {
     const renderpass: GPURenderPassEncoder = commandEncoder.beginRenderPass({
         colorAttachments: [{
             view: textureView,
-            clearValue: { r: 0.5, g: 0.0, b: 0.25, a: 1.0 },
+            clearValue: { r: 1, g: 1, b: 1, a: 1.0 },
             loadOp: "clear",
             storeOp: "store"
         }]
     });
 
     renderpass.setPipeline(pipeline);
-    renderpass.setBindGroup(0, bindGroup)
     renderpass.draw(3, 1, 0, 0);
     renderpass.end();
 
